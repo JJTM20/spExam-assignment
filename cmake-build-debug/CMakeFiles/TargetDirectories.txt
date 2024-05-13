@@ -1,0 +1,3 @@
+C:/Users/jjtor/Desktop/Skole/8sem/sP/Eksamensprojekt/cmake-build-debug/CMakeFiles/Eksamensprojekt.dir
+C:/Users/jjtor/Desktop/Skole/8sem/sP/Eksamensprojekt/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/jjtor/Desktop/Skole/8sem/sP/Eksamensprojekt/cmake-build-debug/CMakeFiles/rebuild_cache.dir
