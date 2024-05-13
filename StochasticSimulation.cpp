@@ -19,7 +19,7 @@ void StochasticSimulation::RunSimulation(std::vector<Reaction> reaction_set, std
 const std::chrono::duration<double, std::milli> StochasticSimulation::ComputeReactionTime(Reaction reaction){
     std::vector<Molecule> reactants = reaction.get_reactants();
     double total_amount_of_reactants;
-    for (auto m:reactants) {
+    for (auto m:reactants){
         total_amount_of_reactants += m.get_current_amount();
     }
     double r_delay = reaction.get_current_rate_parameter() * total_amount_of_reactants;
