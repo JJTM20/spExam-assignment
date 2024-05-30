@@ -6,7 +6,8 @@
 #define EKSAMENSPROJEKT_MOLECULE_H
 #include <stdlib.h>
 #include <string>
-#include "Reaction.h"
+
+class Reaction;
 
 class Molecule {
 private:
@@ -19,10 +20,9 @@ public:
     void set_current_amount(double val) { current_amount = val; }
 
     //Overloads
-    Reaction operator+(Molecule molecule) const{
-
-    };
+    Reaction operator+(Molecule molecule) const;
     Reaction operator+(Reaction reaction);
+    Reaction operator>>(double delay);
 
 
 };

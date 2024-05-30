@@ -6,5 +6,6 @@ set(CMAKE_CXX_STANDARD 17)
 add_executable(Eksamensprojekt main.cpp
         StochasticSimulation.h
         Molecule.h
+        Reaction.h
         StochasticSimulation.cpp
-        Reaction.h)
+)

@@ -5,7 +5,6 @@
 #ifndef EKSAMENSPROJEKT_VESSEL_H
 #define EKSAMENSPROJEKT_VESSEL_H
 
-
 #include "GlobalState.h"
 
 class Vessel {

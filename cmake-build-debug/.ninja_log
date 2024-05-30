@@ -1,4 +1,18 @@
 # ninja log v5
-5	443	7387790135372978	CMakeFiles/Eksamensprojekt.dir/main.cpp.obj	559ad9656f622df8
-1565	1791	7387790148818513	Eksamensprojekt.exe	c9fa0d9b4326cad9
-0	1563	7387790146576550	CMakeFiles/Eksamensprojekt.dir/StochasticSimulation.cpp.obj	b222d5be38b555e9
+7	1535	7387697941118080	CMakeFiles/Eksamensprojekt.dir/Vessel.cpp.obj	dc033960053a7e9d
+3	1550	7387834854653338	CMakeFiles/Eksamensprojekt.dir/main.cpp.obj	559ad9656f622df8
+14	1606	7387694749758970	CMakeFiles/Eksamensprojekt.dir/GlobalState.cpp.obj	bf7736b8b73ab44a
+517	644	7367127631585438	Eksamensprojekt.exe	1952f049cfd058ac
+3	2381	7387834545761195	CMakeFiles/Eksamensprojekt.dir/StochasticSimulation.cpp.obj	b222d5be38b555e9
+1	153	7387849614013786	build.ninja	13f1430c5fea510
+33	3517	7387821692720982	CMakeFiles/Eksamensprojekt.dir/Reaction.cpp.obj	4f8d3d22c59167da
+7	2230	7387850733719204	CMakeFiles/Eksamensprojekt.dir/main.cpp.obj	559ad9656f622df8
+3	2277	7387850734182018	CMakeFiles/Eksamensprojekt.dir/StochasticSimulation.cpp.obj	b222d5be38b555e9
+8	2065	7387851735151386	CMakeFiles/Eksamensprojekt.dir/main.cpp.obj	559ad9656f622df8
+3	2091	7387851735406789	CMakeFiles/Eksamensprojekt.dir/StochasticSimulation.cpp.obj	b222d5be38b555e9
+8	1688	7387853141789136	CMakeFiles/Eksamensprojekt.dir/main.cpp.obj	559ad9656f622df8
+3	1806	7387853142965587	CMakeFiles/Eksamensprojekt.dir/StochasticSimulation.cpp.obj	b222d5be38b555e9
+8	1638	7387853297637758	CMakeFiles/Eksamensprojekt.dir/main.cpp.obj	559ad9656f622df8
+3	1666	7387853297903500	CMakeFiles/Eksamensprojekt.dir/StochasticSimulation.cpp.obj	b222d5be38b555e9
+8	1609	7387853453824025	CMakeFiles/Eksamensprojekt.dir/main.cpp.obj	559ad9656f622df8
+3	1629	7387853454022579	CMakeFiles/Eksamensprojekt.dir/StochasticSimulation.cpp.obj	b222d5be38b555e9

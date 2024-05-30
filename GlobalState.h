@@ -5,10 +5,10 @@
 #ifndef EKSAMENSPROJEKT_GLOBALSTATE_H
 #define EKSAMENSPROJEKT_GLOBALSTATE_H
 
-
 #include <bits/stdc++.h>
 #include "Molecule.h"
 #include "Reaction.h"
+
 
 class GlobalState {
 private:
