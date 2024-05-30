@@ -99,7 +99,8 @@
 			"sourceIndexes" : 
 			[
 				1,
-				2
+				2,
+				4
 			]
 		}
 	],
@@ -126,6 +127,11 @@
 			"compileGroupIndex" : 0,
 			"path" : "StochasticSimulation.cpp",
 			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Reaction.h",
+			"sourceGroupIndex" : 1
 		}
 	],
 	"type" : "EXECUTABLE"

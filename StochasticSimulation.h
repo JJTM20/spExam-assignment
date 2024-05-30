@@ -10,15 +10,7 @@
 #include <chrono>
 #include <functional>
 
-class Reaction{
-private:
-    std::vector<Molecule> reactants;
-    double rate_parameter;
-public:
-    double get_current_rate_parameter(){return rate_parameter;}
-    void set_rate_parameter(double rp){rate_parameter = rp;}
-    std::vector<Molecule> get_reactants(){return reactants;}
-};
+
 
 class GlobalState{
 private:

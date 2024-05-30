@@ -1,0 +1,40 @@
+Index: Reaction.h
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Reaction.h b/Reaction.h
+--- a/Reaction.h	
++++ b/Reaction.h	(date 1717075094351)
+@@ -9,6 +9,10 @@
+ #include "Molecule.h"
+ 
+ 
++class Environment{
++    Environment();
++};
++
+ class Reaction{
+ private:
+     std::vector<Molecule> reactants;
+@@ -24,13 +28,17 @@
+ 
+ 
+     //Overloads
++    Reaction operator+(const Molecule molecule);
++
+     Reaction operator>>(double delay);
+ 
+-    Reaction operator>>=(Reaction reaction);
++    Reaction operator>>=(const Reaction reaction);
+ 
+-    Reaction operator>>=(Molecule molecule);
++    Reaction operator>>=(const Molecule& molecule){
++        add_product(molecule);
++    };
+ 
+-    Reaction operator>>=();
++    //Reaction operator>>=(const Environment environment); //Dissolves into environment
+ 
+ };
+ 
