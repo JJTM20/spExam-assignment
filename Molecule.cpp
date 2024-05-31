@@ -3,8 +3,3 @@
 //
 
 #include "Molecule.h"
-#include "Reaction.h"
-
-Reaction operator+(Molecule molecule) const{
-        Reaction r = Reaction();
-    };

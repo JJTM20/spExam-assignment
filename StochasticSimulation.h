@@ -18,6 +18,7 @@ public:
 };
 
 class Reaction;
+
 class Molecule {
 private:
     std::string symbol;
@@ -31,7 +32,7 @@ public:
     //Overloads
     Reaction operator+(Molecule molecule) const;
     Reaction operator+(Reaction reaction);
-    Reaction operator>>(double delay);
+    Reaction operator>>(double delay) const;
 
 };
 
@@ -63,25 +64,42 @@ class Reaction{
 private:
     std::vector<Molecule> reactants;
     double rate_parameter;
+    std::vector<Molecule> products;
 public:
     Reaction(){};
     double get_current_rate_parameter(){return rate_parameter;}
     void set_rate_parameter(double rp){rate_parameter = rp;}
     std::vector<Molecule> get_reactants(){return reactants;}
     void add_reactant(Molecule reactant){reactants.push_back(reactant);}
-    void add_product(Molecule product){reactants.push_back(product);}
+    void add_product(Molecule product){products.push_back(product);}
 
 
     //Overloads
-    Reaction operator>>(double delay){};
+    Reaction operator>>(double delay){
+        auto r = Reaction();
+        for (auto reactant:this->get_reactants()) {
+            r.add_reactant(reactant);
+        }
+        r.set_rate_parameter(delay); //Delay = rate_parameter
+        return r;
+    };
 
     Reaction operator>>=(Molecule molecule){
         add_product(molecule);
         return *this;
     };
 
-    Reaction operator>>=(Reaction reaction){};
+    Reaction operator>>=(Reaction reaction){
+        auto r = Reaction();
+        for (auto reactant:reaction.get_reactants()) {
+            r.add_product(reactant);
+        }
+        return r;
+    };
 
+    Reaction operator>>=(Environment env){;
+        return *this;
+    };
 };
 
 class Vessel {

@@ -63,5 +63,23 @@ void RandomNumberGen(double delay){
 
 
 Reaction Molecule::operator+(Molecule molecule) const {
-    return Reaction();
+    auto r = Reaction();
+    r.add_reactant(molecule);
+    r.add_reactant(*this);
+    return r;
 }
+
+
+Reaction Molecule::operator>>(double delay) const{
+    auto r = Reaction();
+    r.add_reactant(*this);
+    r.set_rate_parameter(delay); //Delay = rate_parameter
+    return r;
+};
+
+double get_current_rate_parameter();
+void set_rate_parameter(double rp);
+std::vector<Molecule> get_reactants();
+void add_reactant(Molecule reactant);
+void add_product(Molecule product);
+

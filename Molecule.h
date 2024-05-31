@@ -7,8 +7,6 @@
 #include <stdlib.h>
 #include <string>
 
-class Reaction;
-
 
 
 
