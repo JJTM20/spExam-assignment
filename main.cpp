@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Vessel.h"
 #include "Molecule.h"
+#include "StochasticSimulation.h"
 
 
 Vessel circadian_rhythm();

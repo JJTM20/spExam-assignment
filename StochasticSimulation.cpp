@@ -5,6 +5,7 @@
 #include "StochasticSimulation.h"
 #include "GlobalState.h"
 #include "Molecule.h"
+#include "Reaction.h"
 
 //Global variables
 
@@ -42,20 +43,25 @@ const double StochasticSimulation::ComputeReactionTime(Reaction reaction){
     return r_delay;
 }
 
-/*const Reaction FindSmallestDelayReaction(GlobalState global_state){
+const Reaction FindSmallestDelayReaction(GlobalState global_state){
     auto min_delay_reaction = Reaction();
-    min_delay_reaction.set_rate_parameter(std::numeric_limits<double>::infinity());
+    min_delay_reaction.set_rate_parameter(std::numeric_limits<double>::infinity());/*
     for (auto r : global_state.reactions) {
         if (r.get_current_rate_parameter() < min_delay_reaction.get_current_rate_parameter()){
             min_delay_reaction = r;
         }
-    }
+    }*/
     return min_delay_reaction;
-}*/
+}
 
 
 void RandomNumberGen(double delay){
     std::random_device rd;
     std::mt19937 gen(rd());
     std::exponential_distribution<double> distribution(delay);
+}
+
+
+Reaction Molecule::operator+(Molecule molecule) const {
+    return Reaction();
 }
