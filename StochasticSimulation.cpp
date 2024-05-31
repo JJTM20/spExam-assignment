@@ -75,11 +75,16 @@ Reaction Molecule::operator>>(double delay) const{
     r.add_reactant(*this);
     r.set_rate_parameter(delay); //Delay = rate_parameter
     return r;
-};
+}
 
-double get_current_rate_parameter();
-void set_rate_parameter(double rp);
-std::vector<Molecule> get_reactants();
-void add_reactant(Molecule reactant);
-void add_product(Molecule product);
+Reaction Molecule::operator+(Reaction reaction) {
+    auto r = Reaction();
+    for (auto reactant:reaction.get_reactants()) {
+        r.add_reactant(reactant);
+    }
+    for (auto product:reaction.get_products()) {
+        r.add_product(product);
+    }
+    return r;
+};
 

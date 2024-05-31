@@ -2,14 +2,18 @@
 #include "Vessel.h"
 #include "Molecule.h"
 #include "StochasticSimulation.h"
-
+#include "PrettyPrinter.h"
 
 Vessel circadian_rhythm();
 
 int main() {
 
     auto c = circadian_rhythm();
+    auto r = c.GetReactions();
+    std::cout << r;
+
     std::cout << "Hello, World!" << std::endl;
+
     return 0;
 }
 
@@ -44,6 +48,7 @@ Vessel circadian_rhythm(){
     const auto A = v.add("A", 0);
     const auto R = v.add("R", 0);
     const auto C = v.add("C", 0);
+
 
     v.add((A + DA) >> gammaA >>= D_A);
     v.add(D_A >> thetaA >>= DA + A);

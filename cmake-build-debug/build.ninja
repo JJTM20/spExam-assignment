@@ -61,6 +61,12 @@ build CMakeFiles/Eksamensprojekt.dir/StochasticSimulation.cpp.obj: CXX_COMPILER_
   OBJECT_DIR = CMakeFiles\Eksamensprojekt.dir
   OBJECT_FILE_DIR = CMakeFiles\Eksamensprojekt.dir
 
+build CMakeFiles/Eksamensprojekt.dir/PrettyPrinter.cpp.obj: CXX_COMPILER__Eksamensprojekt_unscanned_Debug C$:/Users/jjtor/Desktop/Skole/8sem/sP/Eksamensprojekt/PrettyPrinter.cpp || cmake_object_order_depends_target_Eksamensprojekt
+  DEP_FILE = CMakeFiles\Eksamensprojekt.dir\PrettyPrinter.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\Eksamensprojekt.dir
+  OBJECT_FILE_DIR = CMakeFiles\Eksamensprojekt.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Eksamensprojekt
@@ -69,7 +75,7 @@ build CMakeFiles/Eksamensprojekt.dir/StochasticSimulation.cpp.obj: CXX_COMPILER_
 #############################################
 # Link the executable Eksamensprojekt.exe
 
-build Eksamensprojekt.exe: CXX_EXECUTABLE_LINKER__Eksamensprojekt_Debug CMakeFiles/Eksamensprojekt.dir/main.cpp.obj CMakeFiles/Eksamensprojekt.dir/StochasticSimulation.cpp.obj
+build Eksamensprojekt.exe: CXX_EXECUTABLE_LINKER__Eksamensprojekt_Debug CMakeFiles/Eksamensprojekt.dir/main.cpp.obj CMakeFiles/Eksamensprojekt.dir/StochasticSimulation.cpp.obj CMakeFiles/Eksamensprojekt.dir/PrettyPrinter.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Eksamensprojekt.dir
