@@ -11,9 +11,9 @@
 
 
 //Prototypes
-const Reaction FindSmallestDelayReaction(GlobalState global_state);
+const Reaction FindSmallestDelayReaction(Vessel vessel);
 
-void StochasticSimulation::RunSimulation(std::vector<Reaction> reaction_set, double end_time, GlobalState global_state) {
+void StochasticSimulation::RunSimulation(std::vector<Reaction> reaction_set, double end_time, GlobalState global_state, Vessel vessel) {
     while (global_state.GetCurrentTime() <= end_time){
         for (auto r : reaction_set) {
             auto delay = ComputeReactionTime(r); //TODO: Implement so that the delay is tied to the reaction object (DONE)
@@ -21,7 +21,7 @@ void StochasticSimulation::RunSimulation(std::vector<Reaction> reaction_set, dou
         }
 
         // Pick reaction with shortest delay (reaction time)
-        auto min_delay_reaction = FindSmallestDelayReaction(global_state);
+        auto min_delay_reaction = FindSmallestDelayReaction(vessel);
 
         global_state.AddTime(min_delay_reaction.get_current_rate_parameter());
         for (auto q : min_delay_reaction.get_reactants()) {
@@ -43,14 +43,14 @@ const double StochasticSimulation::ComputeReactionTime(Reaction reaction){
     return r_delay;
 }
 
-const Reaction FindSmallestDelayReaction(GlobalState global_state){
+const Reaction FindSmallestDelayReaction(Vessel vessel){
     auto min_delay_reaction = Reaction();
-    min_delay_reaction.set_rate_parameter(std::numeric_limits<double>::infinity());/*
-    for (auto r : global_state.reactions) {
+    min_delay_reaction.set_rate_parameter(std::numeric_limits<double>::infinity());
+    for (auto r : vessel.GetReactions()) {
         if (r.get_current_rate_parameter() < min_delay_reaction.get_current_rate_parameter()){
             min_delay_reaction = r;
         }
-    }*/
+    }
     return min_delay_reaction;
 }
 
@@ -85,6 +85,6 @@ Reaction Molecule::operator+(Reaction reaction) {
     for (auto product:reaction.get_products()) {
         r.add_product(product);
     }
+    r.set_rate_parameter(reaction.get_current_rate_parameter());
     return r;
 };
-

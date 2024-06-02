@@ -9,4 +9,5 @@ add_executable(Eksamensprojekt main.cpp
         Reaction.h
         StochasticSimulation.cpp
         PrettyPrinter.cpp
+        Grapher.h
 )

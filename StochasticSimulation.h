@@ -70,7 +70,7 @@ public:
     Reaction(){
         rate_parameter = 0;
     };
-    double get_current_rate_parameter() const {return rate_parameter;}
+    double get_current_rate_parameter() {return rate_parameter;}
     void set_rate_parameter(double rp){rate_parameter = rp;}
     std::vector<Molecule> get_reactants(){return reactants;}
     std::vector<Molecule> get_products(){return products;}
@@ -80,7 +80,7 @@ public:
     //Overloads
     Reaction operator>>(double delay){
         auto r = Reaction();
-        for (auto reactant:this->get_reactants()) {
+        for (const auto& reactant:this->get_reactants()) {
             r.add_reactant(reactant);
         }
         r.set_rate_parameter(delay); //Delay = rate_parameter
@@ -92,7 +92,7 @@ public:
         return *this;
     };
 
-    Reaction operator>>=(Reaction reaction){
+    Reaction operator>>=(Reaction reaction){ //TODO: Add copy assignment constructor to reaction to copy all of this, instead of manually doing so
         auto r = Reaction();
         for (const auto& reactant:reaction.get_reactants()) {
             r.add_product(reactant);
@@ -100,6 +100,7 @@ public:
         for (const auto& reactant:this->get_reactants()) {
             r.add_reactant(reactant);
         }
+        r.set_rate_parameter(this->get_current_rate_parameter());
         return r;
     };
 
@@ -116,6 +117,7 @@ public:
     Vessel(std::string n){name = n;}
     GlobalState global_state = GlobalState(); //Environment
     std::list<Reaction> GetReactions(){return reactions;}
+    std::string GetName(){return name;}
 
     Molecule add(std::string name, double amount){
         auto molecule = Molecule(name, amount);
@@ -135,7 +137,7 @@ class StochasticSimulation {
 private:
 
 public:
-    void RunSimulation(std::vector<Reaction> reaction_set, double end_time, GlobalState state);
+    void RunSimulation(std::vector<Reaction> reaction_set, double end_time, GlobalState state, Vessel vessel);
     const double ComputeReactionTime(Reaction reaction);
 };
 
@@ -158,10 +160,6 @@ std::ostream& operator<<(std::ostream& os, std::list<T> const& container){
     }
     return os;
 }
-
-
-// Graphviz
-
 
 
 

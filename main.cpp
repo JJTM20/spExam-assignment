@@ -3,14 +3,17 @@
 #include "Molecule.h"
 #include "StochasticSimulation.h"
 #include "PrettyPrinter.h"
+#include "Grapher.h"
 
 Vessel circadian_rhythm();
 
 int main() {
-
+    auto grapher = Grapher();
     auto c = circadian_rhythm();
     auto r = c.GetReactions();
     std::cout << r;
+
+    grapher.Graph(r);
 
     std::cout << "Hello, World!" << std::endl;
 
