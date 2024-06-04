@@ -14,8 +14,9 @@ int main() {
     //std::cout << r;
 
     //grapher.Graph(r);
+    auto sim = StochasticSimulation();
 
-    StochasticSimulation::RunSimulation(c, 100000);
+    sim.RunSimulation(c, 100);
 
     std::cout << "Hello, World!" << std::endl;
 

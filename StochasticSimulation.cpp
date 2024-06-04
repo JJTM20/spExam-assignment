@@ -20,11 +20,21 @@ double RandomNumberGen(double delay){
 }
 
 void StochasticSimulation::RunSimulation(Vessel vessel, double end_time) {
-    std::cout << "Running simulation. Time: "  + std::to_string(vessel.global_state.GetCurrentTime());
+    std::string mCount;
+    std::cout << "Running simulation. Time: "  + std::to_string(vessel.global_state.GetCurrentTime()) + "\n";
     while (vessel.global_state.GetCurrentTime() <= end_time){
         for (auto &r : *vessel.GetReactions()) {
-            auto delay = ComputeReactionTime(&r);
-            r.set_rate_parameter(delay);
+            if (std::all_of(r.get_reactants().begin(), r.get_reactants().end(), [](Molecule& i) { return i.get_current_amount() > 0; })){
+                ComputeReactionTime(&r);
+            }
+            for (auto &reaction:*vessel.GetReactions()) {
+                for (auto reactant:reaction.get_reactants()) {
+                    mCount += std::to_string(reactant.get_current_amount()) + ",";
+                }
+            }
+            mCount.pop_back();
+            trajectory << vessel.global_state.GetCurrentTime() << ',' << mCount << "\n";
+            mCount.clear();
         }
         // Pick reaction with shortest delay (reaction time)
         auto min_delay_reaction = FindSmallestDelayReaction(vessel);
@@ -45,14 +55,13 @@ void StochasticSimulation::RunSimulation(Vessel vessel, double end_time) {
 
 }
 
-const double StochasticSimulation::ComputeReactionTime(Reaction* reaction){
+const void StochasticSimulation::ComputeReactionTime(Reaction* reaction){
     std::vector<Molecule> reactants = reaction->get_reactants();
     double total_amount_of_reactants = 1;
     for (auto m:reactants){
         total_amount_of_reactants *= m.get_current_amount();
     }
-    double r_delay = RandomNumberGen(reaction->get_current_rate_parameter() * total_amount_of_reactants);
-    return r_delay;
+    reaction->set_rate_parameter(RandomNumberGen(reaction->get_current_rate_parameter() * total_amount_of_reactants));
 }
 
 const Reaction FindSmallestDelayReaction(Vessel vessel){
