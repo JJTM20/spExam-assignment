@@ -11,7 +11,7 @@
 
 
 //Prototypes
-const Reaction FindSmallestDelayReaction(Vessel vessel);
+Reaction FindSmallestDelayReaction(Vessel vessel);
 double RandomNumberGen(double delay){
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -27,24 +27,23 @@ void StochasticSimulation::RunSimulation(Vessel vessel, double end_time) {
             if (std::all_of(r.get_reactants().begin(), r.get_reactants().end(), [](Molecule& i) { return i.get_current_amount() > 0; })){
                 ComputeReactionTime(&r);
             }
-            for (auto &reaction:*vessel.GetReactions()) {
-                for (auto reactant:reaction.get_reactants()) {
-                    mCount += std::to_string(reactant.get_current_amount()) + ",";
-                }
+            for (auto &reactant:r.get_reactants()) {
+                mCount += std::to_string(reactant.get_current_amount()) + ",";
             }
-            mCount.pop_back();
-            trajectory << vessel.global_state.GetCurrentTime() << ',' << mCount << "\n";
-            mCount.clear();
         }
+        mCount.pop_back();
+        trajectory << vessel.global_state.GetCurrentTime() << ',' << mCount;
+        trajectory << "\n";
+        mCount.clear();
         // Pick reaction with shortest delay (reaction time)
         auto min_delay_reaction = FindSmallestDelayReaction(vessel);
 
         vessel.global_state.AddTime(min_delay_reaction.get_current_rate_parameter()); //Line 5
-        for (auto q : min_delay_reaction.get_reactants()) {
+        for (auto &q : min_delay_reaction.get_reactants()) {
             if (q.get_current_amount() > 0){
-                //TODO: Implement lookup/symbol table (DONE)
+                //TODO: Implement lookup/symbol table (To be..)
                 q.set_current_amount(q.get_current_amount() - 1);
-                for (auto p:min_delay_reaction.get_products()) {
+                for (auto &p:min_delay_reaction.get_products()) {
                     p.set_current_amount(p.get_current_amount() + 1);
                 }
             }
@@ -64,10 +63,10 @@ const void StochasticSimulation::ComputeReactionTime(Reaction* reaction){
     reaction->set_rate_parameter(RandomNumberGen(reaction->get_current_rate_parameter() * total_amount_of_reactants));
 }
 
-const Reaction FindSmallestDelayReaction(Vessel vessel){
+Reaction FindSmallestDelayReaction(Vessel vessel){
     auto min_delay_reaction = Reaction();
     min_delay_reaction.set_rate_parameter(std::numeric_limits<double>::infinity());
-    for (auto r : *vessel.GetReactions()) {
+    for (auto &r : *vessel.GetReactions()) {
         if (r.get_current_rate_parameter() < min_delay_reaction.get_current_rate_parameter()){
             min_delay_reaction = r;
         }
