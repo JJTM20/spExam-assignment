@@ -12,41 +12,53 @@
 
 //Prototypes
 const Reaction FindSmallestDelayReaction(Vessel vessel);
+double RandomNumberGen(double delay){
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::exponential_distribution<> distribution(delay);
+    return distribution(gen);
+}
 
-void StochasticSimulation::RunSimulation(std::vector<Reaction> reaction_set, double end_time, GlobalState global_state, Vessel vessel) {
-    while (global_state.GetCurrentTime() <= end_time){
-        for (auto r : reaction_set) {
-            auto delay = ComputeReactionTime(r); //TODO: Implement so that the delay is tied to the reaction object (DONE)
+void StochasticSimulation::RunSimulation(Vessel vessel, double end_time) {
+    std::cout << "Running simulation. Time: "  + std::to_string(vessel.global_state.GetCurrentTime());
+    while (vessel.global_state.GetCurrentTime() <= end_time){
+        for (auto &r : *vessel.GetReactions()) {
+            auto delay = ComputeReactionTime(&r);
             r.set_rate_parameter(delay);
         }
-
         // Pick reaction with shortest delay (reaction time)
         auto min_delay_reaction = FindSmallestDelayReaction(vessel);
 
-        global_state.AddTime(min_delay_reaction.get_current_rate_parameter());
+        vessel.global_state.AddTime(min_delay_reaction.get_current_rate_parameter()); //Line 5
         for (auto q : min_delay_reaction.get_reactants()) {
             if (q.get_current_amount() > 0){
-                //TODO: Implement lookup table (DONE)
+                //TODO: Implement lookup/symbol table (DONE)
                 q.set_current_amount(q.get_current_amount() - 1);
+                for (auto p:min_delay_reaction.get_products()) {
+                    p.set_current_amount(p.get_current_amount() + 1);
+                }
             }
         }
+    std::cout << "Simulation step done. Time: "  + std::to_string(vessel.global_state.GetCurrentTime()) + "\n";
     }
+    std::cout << "Simulation done. Time: "  + std::to_string(vessel.global_state.GetCurrentTime());
+
 }
 
-const double StochasticSimulation::ComputeReactionTime(Reaction reaction){
-    std::vector<Molecule> reactants = reaction.get_reactants();
-    double total_amount_of_reactants;
+const double StochasticSimulation::ComputeReactionTime(Reaction* reaction){
+    std::vector<Molecule> reactants = reaction->get_reactants();
+    double total_amount_of_reactants = 1;
     for (auto m:reactants){
-        total_amount_of_reactants += m.get_current_amount();
+        total_amount_of_reactants *= m.get_current_amount();
     }
-    double r_delay = reaction.get_current_rate_parameter() * total_amount_of_reactants;
+    double r_delay = RandomNumberGen(reaction->get_current_rate_parameter() * total_amount_of_reactants);
     return r_delay;
 }
 
 const Reaction FindSmallestDelayReaction(Vessel vessel){
     auto min_delay_reaction = Reaction();
     min_delay_reaction.set_rate_parameter(std::numeric_limits<double>::infinity());
-    for (auto r : vessel.GetReactions()) {
+    for (auto r : *vessel.GetReactions()) {
         if (r.get_current_rate_parameter() < min_delay_reaction.get_current_rate_parameter()){
             min_delay_reaction = r;
         }
@@ -55,11 +67,7 @@ const Reaction FindSmallestDelayReaction(Vessel vessel){
 }
 
 
-void RandomNumberGen(double delay){
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::exponential_distribution<double> distribution(delay);
-}
+
 
 
 Reaction Molecule::operator+(Molecule molecule) const {

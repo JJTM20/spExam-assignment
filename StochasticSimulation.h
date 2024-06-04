@@ -42,6 +42,7 @@ private:
     double time = 0;
     std::list<Molecule> reactants; //Current molecules swimming around
     std::map<std::string, int> generic_lookup_table;
+    std::list<Reaction> reactions;
 
 public:
     GlobalState(){};
@@ -116,7 +117,7 @@ private:
 public:
     Vessel(std::string n){name = n;}
     GlobalState global_state = GlobalState(); //Environment
-    std::list<Reaction> GetReactions(){return reactions;}
+    std::list<Reaction>* GetReactions(){return &reactions;}
     std::string GetName(){return name;}
 
     Molecule add(std::string name, double amount){
@@ -137,8 +138,8 @@ class StochasticSimulation {
 private:
 
 public:
-    void RunSimulation(std::vector<Reaction> reaction_set, double end_time, GlobalState state, Vessel vessel);
-    const double ComputeReactionTime(Reaction reaction);
+    static void RunSimulation(Vessel vessel, double end_time);
+    static const double ComputeReactionTime(Reaction* reaction);
 };
 
 

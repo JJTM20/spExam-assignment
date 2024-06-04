@@ -11,9 +11,11 @@ int main() {
     auto grapher = Grapher();
     auto c = circadian_rhythm();
     auto r = c.GetReactions();
-    std::cout << r;
+    //std::cout << r;
 
-    grapher.Graph(r);
+    //grapher.Graph(r);
+
+    StochasticSimulation::RunSimulation(c, 100000);
 
     std::cout << "Hello, World!" << std::endl;
 
