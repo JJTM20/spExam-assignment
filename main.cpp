@@ -8,7 +8,7 @@
 Vessel circadian_rhythm();
 
 int main() {
-    auto grapher = Grapher();
+    //auto grapher = Grapher();
     auto c = circadian_rhythm();
     auto r = c.GetReactions();
     //std::cout << r;

@@ -25,10 +25,10 @@ void StochasticSimulation::RunSimulation(Vessel vessel, double end_time) {
     while (vessel.global_state.GetCurrentTime() <= end_time){
         for (auto &r : *vessel.GetReactions()) {
             if (std::all_of(r.get_reactants().begin(), r.get_reactants().end(), [](Molecule& i) { return i.get_current_amount() > 0; })){
-                ComputeReactionTime(&r);
+                ComputeReactionTime(&r, vessel);
             }
             for (auto &reactant:r.get_reactants()) {
-                mCount += std::to_string(reactant.get_current_amount()) + ",";
+                mCount += std::to_string(vessel.global_state.symbolTable.LookUp(reactant.GetName())->second) + ",";
             }
         }
         mCount.pop_back();
@@ -40,11 +40,13 @@ void StochasticSimulation::RunSimulation(Vessel vessel, double end_time) {
 
         vessel.global_state.AddTime(min_delay_reaction.get_current_rate_parameter()); //Line 5
         for (auto &q : min_delay_reaction.get_reactants()) {
-            if (q.get_current_amount() > 0){
-
-                q.set_current_amount(q.get_current_amount() - 1);
+            if (std::all_of(min_delay_reaction.get_reactants().begin(), min_delay_reaction.get_reactants().end(), [](Molecule& i) { return i.get_current_amount() > 0; })){
+                //TODO: Implement lookup/symbol table (To be..)
+                //q.set_current_amount(q.get_current_amount() - 1);
+                vessel.global_state.symbolTable.Update(q.GetName(), -1);
                 for (auto &p:min_delay_reaction.get_products()) {
-                    p.set_current_amount(p.get_current_amount() + 1);
+                    vessel.global_state.symbolTable.Update(p.GetName(), 1);
+                    //p.set_current_amount(p.get_current_amount() + 1);
                 }
             }
         }
@@ -54,11 +56,11 @@ void StochasticSimulation::RunSimulation(Vessel vessel, double end_time) {
 
 }
 
-const void StochasticSimulation::ComputeReactionTime(Reaction* reaction){
+const void StochasticSimulation::ComputeReactionTime(Reaction* reaction, Vessel vessel){
     std::vector<Molecule> reactants = reaction->get_reactants();
     double total_amount_of_reactants = 1;
     for (auto m:reactants){
-        total_amount_of_reactants *= m.get_current_amount();
+        total_amount_of_reactants *= vessel.global_state.symbolTable.LookUp(m.GetName())->second;
     }
     reaction->set_rate_parameter(RandomNumberGen(reaction->get_current_rate_parameter() * total_amount_of_reactants));
 }

@@ -11,6 +11,7 @@
 #include <algorithm>
 #include "Reaction.h"
 #include "Molecule.h"
+#include <map>
 
 class Environment{
 public:
@@ -44,16 +45,20 @@ private:
 
     template<class T, class U>
     struct GenericLookupTable{
-        std::map<T, int> table;
-        int LookUp(T search) {
+        std::map<T, U> table;
+        auto LookUp(T search) {
             if (auto it = table.find(search); it != table.end())
-                return it->second;
-            else
-                return -1;
+                return it;
         }
         void Insert(Molecule m){
-            auto p = std::make_pair(m.GetName(), m.get_current_amount());
-            table.insert({m.GetName(), m.get_current_amount()});
+            if (table.count(m.GetName()) == 0){
+                auto p = std::make_pair(m.GetName(), m.get_current_amount());
+                table.insert({m.GetName(), m.get_current_amount()});
+            }
+        }
+        void Update(T element, int value){
+            auto it = LookUp(element);
+            it->second += value;
         }
 
     };
@@ -62,20 +67,15 @@ private:
 public:
     GlobalState(){};
     Environment environment;
-    GenericLookupTable<std::string, int> SymbolTable = GenericLookupTable<std::string, int>();
+    GenericLookupTable<std::string, int> symbolTable = GenericLookupTable<std::string, int>();
 
     void AddReactant(Molecule reactant){
-        reactants.push_back(reactant);
-        SymbolTable.Insert(reactant);
+        //reactants.push_back(reactant);
+        symbolTable.Insert(reactant);
     }
 
     void AddTime(double time_to_add) { time += time_to_add; }
     double GetCurrentTime() { return time; }
-
-    template<class T>
-    int LookUp(T search){
-        SymbolTable.LookUp(search);
-    }
 };
 
 
@@ -161,7 +161,7 @@ public:
         trajectory = std::ofstream(path, std::ios_base::app);
     }
     void RunSimulation(Vessel vessel, double end_time);
-    static const void ComputeReactionTime(Reaction* reaction);
+    static const void ComputeReactionTime(Reaction* reaction, Vessel vessel);
 };
 
 
