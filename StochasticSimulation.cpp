@@ -41,7 +41,7 @@ void StochasticSimulation::RunSimulation(Vessel vessel, double end_time) {
         vessel.global_state.AddTime(min_delay_reaction.get_current_rate_parameter()); //Line 5
         for (auto &q : min_delay_reaction.get_reactants()) {
             if (q.get_current_amount() > 0){
-                //TODO: Implement lookup/symbol table (To be..)
+
                 q.set_current_amount(q.get_current_amount() - 1);
                 for (auto &p:min_delay_reaction.get_products()) {
                     p.set_current_amount(p.get_current_amount() + 1);

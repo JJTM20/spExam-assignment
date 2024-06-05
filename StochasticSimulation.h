@@ -22,13 +22,13 @@ class Reaction;
 class Molecule {
 private:
     std::string symbol;
-    double current_amount;
+    int current_amount;
 public:
     Molecule(std::string name, double amount){symbol = name, current_amount = amount;}
-    double get_current_amount() const { return current_amount; }
+    int get_current_amount() const { return current_amount; }
     std::string GetName(){return symbol;}
 
-    void set_current_amount(double val) { current_amount = val; }
+    void set_current_amount(int val) { current_amount = val; }
 
     //Overloads
     Reaction operator+(Molecule molecule) const;
@@ -41,22 +41,40 @@ class GlobalState {
 private:
     double time = 0;
     std::list<Molecule> reactants; //Current molecules swimming around
-    std::map<std::string, int> generic_lookup_table;
+
+    template<class T, class U>
+    struct GenericLookupTable{
+        std::map<T, int> table;
+        int LookUp(T search) {
+            if (auto it = table.find(search); it != table.end())
+                return it->second;
+            else
+                return -1;
+        }
+        void Insert(Molecule m){
+            auto p = std::make_pair(m.GetName(), m.get_current_amount());
+            table.insert({m.GetName(), m.get_current_amount()});
+        }
+
+    };
     std::list<Reaction> reactions;
 
 public:
     GlobalState(){};
-
     Environment environment;
-    void AddReactant(Molecule reactant){reactants.push_back(reactant);}
+    GenericLookupTable<std::string, int> SymbolTable = GenericLookupTable<std::string, int>();
+
+    void AddReactant(Molecule reactant){
+        reactants.push_back(reactant);
+        SymbolTable.Insert(reactant);
+    }
 
     void AddTime(double time_to_add) { time += time_to_add; }
-
     double GetCurrentTime() { return time; }
 
-    std::string LookUp(std::string molecule_to_find) {
-        auto it = generic_lookup_table.find(molecule_to_find);
-        return it->first;
+    template<class T>
+    int LookUp(T search){
+        SymbolTable.LookUp(search);
     }
 };
 
