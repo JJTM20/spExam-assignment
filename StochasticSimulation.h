@@ -27,7 +27,7 @@ private:
 public:
     Molecule(std::string name, double amount){symbol = name, current_amount = amount;}
     int get_current_amount() const { return current_amount; }
-    std::string GetName(){return symbol;}
+    std::string GetName() const {return symbol;}
 
     void set_current_amount(int val) { current_amount = val; }
 
@@ -41,24 +41,27 @@ public:
 class GlobalState {
 private:
     double time = 0;
-    std::list<Molecule> reactants; //Current molecules swimming around
+    //std::list<Molecule> reactants; //Current molecules swimming around
 
     template<class T, class U>
     struct GenericLookupTable{
         std::map<T, U> table;
         auto LookUp(T search) {
-            if (auto it = table.find(search); it != table.end())
-                return it;
+            return table.find(search);
+
+            /*if (auto it = table.find(search); it != table.end())
+                return it;*/
         }
         void Insert(Molecule m){
-            if (table.count(m.GetName()) == 0){
-                auto p = std::make_pair(m.GetName(), m.get_current_amount());
-                table.insert({m.GetName(), m.get_current_amount()});
-            }
+            table.insert({m.GetName(), m.get_current_amount()});
         }
         void Update(T element, int value){
             auto it = LookUp(element);
-            it->second += value;
+            if (it != table.end()){
+                it->second += value;
+            }else{
+                std::cout << element << " is not in symbol table";
+            }
         }
 
     };
@@ -84,25 +87,28 @@ class Reaction{
 private:
     std::vector<Molecule> reactants;
     double rate_parameter;
+    double delay;
     std::vector<Molecule> products;
 public:
     Reaction(){
-        rate_parameter = 0;
+        delay = std::numeric_limits<double>::infinity();
     };
-    double get_current_rate_parameter() {return rate_parameter;}
+    double get_current_rate_parameter() const {return rate_parameter;}
+    double get_current_delay() const {return delay;}
+    void set_delay(double d){delay = d;}
     void set_rate_parameter(double rp){rate_parameter = rp;}
-    std::vector<Molecule> get_reactants(){return reactants;}
-    std::vector<Molecule> get_products(){return products;}
+    std::vector<Molecule>& get_reactants(){return reactants;}
+    std::vector<Molecule>& get_products(){return products;}
     void add_reactant(const Molecule& reactant){reactants.push_back(reactant);}
     void add_product(const Molecule& product){products.push_back(product);}
 
     //Overloads
-    Reaction operator>>(double delay){
+    Reaction operator>>(double rate){
         auto r = Reaction();
         for (const auto& reactant:this->get_reactants()) {
             r.add_reactant(reactant);
         }
-        r.set_rate_parameter(delay); //Delay = rate_parameter
+        r.set_rate_parameter(rate);
         return r;
     };
 
@@ -135,7 +141,7 @@ private:
 public:
     Vessel(std::string n){name = n;}
     GlobalState global_state = GlobalState(); //Environment
-    std::list<Reaction>* GetReactions(){return &reactions;}
+    std::list<Reaction>& GetReactions(){return reactions;}
     std::string GetName(){return name;}
 
     Molecule add(std::string name, double amount){
@@ -144,7 +150,6 @@ public:
         return molecule;
     };
     void add(const Reaction reaction){
-        //global_state.AddTime(reaction.get_current_rate_parameter());
         reactions.push_back(reaction);
     };
 };
@@ -161,7 +166,8 @@ public:
         trajectory = std::ofstream(path, std::ios_base::app);
     }
     void RunSimulation(Vessel vessel, double end_time);
-    static const void ComputeReactionTime(Reaction* reaction, Vessel vessel);
+    void RunSimulationParallel(Vessel vessel, double end_time);
+    static double ComputeReactionTime(Reaction& reaction, Vessel& vessel);
 };
 
 
@@ -173,11 +179,16 @@ std::ostream& operator<<(std::ostream& os, std::list<T> const& container){
         for (auto reactant:reaction.get_reactants()) {
             os << reactant.GetName() << " ";
         }
+        os << "\b \b";
         os << "] Rate parameter: ";
         os << "[" << reaction.get_current_rate_parameter() << "]";
         os << " Products: [";
-        for (auto p:reaction.get_products()) {
-            os << p.GetName() << " ";
+
+        if (!reaction.get_products().empty()){
+            for (const auto p: reaction.get_products()) {
+                os << p.GetName() << " ";
+            }
+            os << "\b \b";
         }
         os << "]\n";
     }

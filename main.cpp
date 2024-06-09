@@ -8,17 +8,17 @@
 Vessel circadian_rhythm();
 
 int main() {
-    //auto grapher = Grapher();
     auto c = circadian_rhythm();
-    auto r = c.GetReactions();
+    //auto r = c.GetReactions();
     //std::cout << r;
 
-    //grapher.Graph(r);
-    auto sim = StochasticSimulation();
+    //auto grapher = Grapher();
+    //grapher.Graph(*r);
 
+    auto sim = StochasticSimulation();
     sim.RunSimulation(c, 100);
 
-    std::cout << "Hello, World!" << std::endl;
+    std::cout << "\nHello, World!" << std::endl;
 
     return 0;
 }

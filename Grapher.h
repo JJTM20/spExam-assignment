@@ -22,7 +22,7 @@ public:
     };
     ~Grapher(){
         out << end;
-        out.close();
+        //out.close(); Happens automatically
         std::cout << "Grapher destroyed. ";
     }
 
@@ -32,7 +32,7 @@ public:
             for (auto reactant:r.get_reactants()) {
                 AddMolecule(reactant.GetName());
                 for (auto p:r.get_products()) {
-                    AddArrow(reactant.GetName(), p.GetName(), std::to_string(r.get_current_rate_parameter()));
+                    AddArrow(reactant.GetName(), p.GetName(), r.get_current_rate_parameter());
                 }
             }
         }
@@ -59,8 +59,8 @@ public:
 
     //Takes in (label, delay) || (delay, label)
     template<class T1, class T2>
-    void AddArrow(T1 source, T2 target, std::string delay){
-        out << source << "->" << target << "[label=\"" << delay <<"\"]\n";
+    void AddArrow(T1 source, T2 target, double delay){
+        out << source << "->" << target << "[label=\"" << (int)(delay / 0.01) * 0.01 <<"\"]\n";
     }
 };
 
