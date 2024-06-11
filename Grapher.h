@@ -7,22 +7,24 @@
 
 #include <bits/stdc++.h>
 
+#include <utility>
+
 class Grapher{
 private:
     std::string start = "digraph{";
     std::string end = "}";
-    const char *path="..\\out\\out.txt";
-    std::ofstream out = std::ofstream(path, std::ios_base::app);
+    std::ofstream out;
     int delay_index = 0;
     std::vector<std::string> molecule_labels = std::vector<std::string>();
     std::vector<double> delays = std::vector<double>();
 public:
-    Grapher(){
-        out << start;
+    Grapher(std::string name){
+    std::string path="..\\out\\out_" + name + ".txt";
+    out = std::ofstream(path);
+    out << start;
     };
     ~Grapher(){
         out << end;
-        //out.close(); Happens automatically
         std::cout << "Grapher destroyed. ";
     }
 

@@ -159,12 +159,10 @@ public:
 
 class StochasticSimulation {
 private:
-    const char *path="..\\out\\trajectory.csv";
+    std::string path="..\\out\\trajectory.csv";
     std::ofstream trajectory;
 public:
-    StochasticSimulation(){
-        trajectory = std::ofstream(path, std::ios_base::app);
-    }
+    StochasticSimulation(){}
     void RunSimulation(Vessel vessel, double end_time);
     void RunSimulationParallel(Vessel vessel, double end_time);
     static double ComputeReactionTime(Reaction& reaction, Vessel& vessel);

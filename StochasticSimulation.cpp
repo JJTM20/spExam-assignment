@@ -23,7 +23,8 @@ double RandomNumberGen(double delay){
 void StochasticSimulation::RunSimulation(Vessel vessel, double end_time) {
     std::string mCount;
     std::string header;
-
+    this->path = "..\\out\\trajectory_" + vessel.GetName() + ".csv";
+    trajectory = std::ofstream(path);
     header += "Time,";
     trajectory << header;
     for (auto it = vessel.global_state.symbolTable.table.begin(); it != vessel.global_state.symbolTable.table.end(); ++it){
@@ -94,9 +95,6 @@ Reaction FindSmallestDelayReaction(Vessel& vessel){
     std::cout << "Min_delay: " << min_delay_reaction.get_current_delay() << "\n";
     return min_delay_reaction;
 }
-
-
-
 
 
 Reaction Molecule::operator+(Molecule molecule) const {

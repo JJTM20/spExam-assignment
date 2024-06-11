@@ -9,11 +9,11 @@ Vessel circadian_rhythm();
 
 int main() {
     auto c = circadian_rhythm();
-    //auto r = c.GetReactions();
+    auto r = c.GetReactions();
     //std::cout << r;
 
-    //auto grapher = Grapher();
-    //grapher.Graph(*r);
+    //auto grapher = Grapher(c.GetName());
+    //grapher.Graph(r);
 
     auto sim = StochasticSimulation();
     sim.RunSimulation(c, 100);
