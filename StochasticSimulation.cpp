@@ -69,6 +69,8 @@ void StochasticSimulation::RunSimulation(Vessel vessel, double end_time) {
 
 }
 
+
+
 double StochasticSimulation::ComputeReactionTime(Reaction& reaction, Vessel& vessel){
     double total_amount_of_reactants = 1.0;
     for (const auto &m:reaction.get_reactants()){

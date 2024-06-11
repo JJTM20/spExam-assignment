@@ -4,6 +4,7 @@
 #include "StochasticSimulation.h"
 #include "PrettyPrinter.h"
 #include "Grapher.h"
+#include "Observer.h"
 
 Vessel circadian_rhythm();
 
@@ -14,6 +15,8 @@ int main() {
 
     //auto grapher = Grapher(c.GetName());
     //grapher.Graph(r);
+
+    auto peak = PeakHospitalizationObserver(c.global_state);
 
     auto sim = StochasticSimulation();
     sim.RunSimulation(c, 100);

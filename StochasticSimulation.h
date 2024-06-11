@@ -19,6 +19,8 @@ public:
 };
 
 class Reaction;
+template<class T>
+class Observer;
 
 class Molecule {
 private:
@@ -42,6 +44,7 @@ class GlobalState {
 private:
     double time = 0;
     //std::list<Molecule> reactants; //Current molecules swimming around
+    std::vector<Observer<GlobalState>*> observers;
 
     template<class T, class U>
     struct GenericLookupTable{
@@ -80,8 +83,6 @@ public:
     void AddTime(double time_to_add) { time += time_to_add; }
     double GetCurrentTime() { return time; }
 };
-
-
 
 class Reaction{
 private:
@@ -193,6 +194,32 @@ std::ostream& operator<<(std::ostream& os, std::list<T> const& container){
     return os;
 }
 
+template<class T>
+class Observer {
+protected:
+    GlobalState globalState;
+public:
+    explicit Observer(GlobalState& state){globalState = state;}
+
+    virtual void update(){
+        std::cout << "Observer updated";
+    };
+};
+
+class PeakHospitalizationObserver : Observer<GlobalState> {
+private:
+    int max = std::numeric_limits<int>::infinity();
+public:
+    PeakHospitalizationObserver(GlobalState state) : Observer(state) {}
+    int update(const Molecule& molecule) {
+        auto m = Observer::globalState.symbolTable.LookUp(molecule.GetName());
+        if (m->second > max){
+            max = m->second;
+            return max;
+        }
+    }
+
+};
 
 
 

@@ -5,10 +5,4 @@
 #ifndef EKSAMENSPROJEKT_OBSERVER_H
 #define EKSAMENSPROJEKT_OBSERVER_H
 
-
-class Observer {
-
-};
-
-
 #endif //EKSAMENSPROJEKT_OBSERVER_H
