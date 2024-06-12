@@ -69,7 +69,20 @@ void StochasticSimulation::RunSimulation(Vessel vessel, double end_time) {
 
 }
 
+void StochasticSimulation::RunSimulationParallel(Vessel vessel, double end_time, int numberOfSims) {
+    const int numThreads = numberOfSims;
+    std::vector<std::thread> threads;
+    std::vector<StochasticSimulation> simulations(numberOfSims);
 
+    for (int i = 0; i < numberOfSims; ++i) {
+        threads.emplace_back(&StochasticSimulation::RunSimulation, &simulations[i], std::ref(vessel), end_time);
+    }
+
+    for (auto& thread : threads) {
+        thread.join();
+    }
+
+}
 
 double StochasticSimulation::ComputeReactionTime(Reaction& reaction, Vessel& vessel){
     double total_amount_of_reactants = 1.0;

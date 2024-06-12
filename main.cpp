@@ -20,6 +20,7 @@ int main() {
 
     auto sim = StochasticSimulation();
     sim.RunSimulation(c, 100);
+    //sim.RunSimulationParallel(c, 100, 100);
 
     std::cout << "\nHello, World!" << std::endl;
 
