@@ -78,7 +78,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "Eksamensprojekt::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-Eksamensprojekt-Debug-6178d1f965ff7d9ecf77.json",
+					"jsonFile" : "target-Eksamensprojekt-Debug-326508c79108c048505e.json",
 					"name" : "Eksamensprojekt",
 					"projectIndex" : 0
 				},
@@ -92,7 +92,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "tests::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-tests-Debug-9bf32d9b6fbd969e3f3e.json",
+					"jsonFile" : "target-tests-Debug-39525a8dc330630c4402.json",
 					"name" : "tests",
 					"projectIndex" : 0
 				}

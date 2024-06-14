@@ -1,0 +1,8 @@
+Single-core:
+	Simulation done. Time: 100.354100
+	SEIHR_SINGLE took 164066 ms
+Multi-core:
+	Simulation done. Time: 100.046853
+	SEIHR_PARALLEL took 113153 ms
+Diff.:
+	50.913 ms = 50 s

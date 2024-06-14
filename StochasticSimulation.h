@@ -242,6 +242,7 @@ namespace stochastic {
 
         template<class Obs>
         void RunSimulationParallel(Vessel vessel, double end_time, int numberOfSims, Obs observer);
+        void RunSimulationParallel(Vessel vessel, double end_time, int numberOfSims);
 
         static double ComputeReactionTime(Reaction &reaction, Vessel &vessel);
     };

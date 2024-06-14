@@ -4,6 +4,7 @@
 #include "StochasticSimulation.h"
 #include "PrettyPrinter.h"
 #include "Grapher.h"
+#include "Benchmarker.h"
 
 void HospitalPeak();
 stochastic::Vessel circadian_rhythm();
@@ -26,12 +27,30 @@ int main() {
     //grapher.Graph(r);
     //grapher.Graph(s.GetReactions());
 
+    auto benchmarker = Bench();
+
     auto sim = stochastic::StochasticSimulation();
-    sim.RunSimulation(f3, 2000);
+    //sim.RunSimulation(f3, 2000);
     //sim.RunSimulation(c, 100);
     //sim.RunSimulation(s, 100);
-
     //HospitalPeak();
+
+#pragma region Single Run 50 Simulations Benchmarking
+    /*benchmarker.start_clock("SEIHR_SINGLE");
+    for (int i = 0; i < 50; ++i) {
+        std::cout << "\n" << "i = " << i;
+        sim.RunSimulation(s, 100);
+    }
+    benchmarker.stop_clock("SEIHR_SINGLE");
+    std::cout << "\n";
+    benchmarker.report();*/
+#pragma endregion
+#pragma region Parallel Run 50 Simulations Benchmarking
+    benchmarker.start_clock("SEIHR_PARALLEL");
+    sim.RunSimulationParallel(s, 100, 50);
+    benchmarker.stop_clock("SEIHR_PARALLEL");
+    benchmarker.report();
+#pragma endregion
 
     std::cout << "\nHello, World!" << std::endl;
 

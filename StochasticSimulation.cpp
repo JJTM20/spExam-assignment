@@ -78,11 +78,11 @@ namespace stochastic {
             }
             std::cout << "Simulation step done. Time: " + std::to_string(vessel.global_state.GetCurrentTime()) + "\n";
         }
-        std::cout << "Simulation done. Time: " + std::to_string(vessel.global_state.GetCurrentTime());
+        std::cout << "Simulation done. Time: " + std::to_string(vessel.global_state.GetCurrentTime()) << "\n";
 
     }
 
-    template<class Obs>
+    template<typename Obs>
     void StochasticSimulation::RunSimulationParallel(Vessel vessel, double end_time, int numberOfSims, Obs observer) {
         std::vector<std::thread> threads;
         std::vector<StochasticSimulation> simulations(numberOfSims);
@@ -95,6 +95,18 @@ namespace stochastic {
             thread.join();
         }
 
+    }
+    void StochasticSimulation::RunSimulationParallel(Vessel vessel, double end_time, int numberOfSims) {
+        std::vector<std::thread> threads;
+        std::vector<StochasticSimulation> simulations(numberOfSims);
+
+        for (int i = 0; i < numberOfSims; ++i) {
+            threads.emplace_back(static_cast<void (StochasticSimulation::*)(Vessel, double)>(&StochasticSimulation::RunSimulation), &simulations[i], std::ref(vessel), end_time);
+        }
+
+        for (auto &thread: threads) {
+            thread.join();
+        }
     }
 
     double StochasticSimulation::ComputeReactionTime(Reaction &reaction, Vessel &vessel) {

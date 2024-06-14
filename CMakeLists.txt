@@ -10,6 +10,7 @@ add_executable(Eksamensprojekt main.cpp
         StochasticSimulation.cpp
         PrettyPrinter.cpp
         Grapher.h
+        Benchmarker.cpp
 )
 
 enable_testing()
