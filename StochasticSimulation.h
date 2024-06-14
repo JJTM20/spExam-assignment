@@ -69,7 +69,8 @@ namespace stochastic {
                 if (it != table.end()) {
                     it->second += value;
                 } else {
-                    std::cout << element << " is not in symbol table";
+                    table.insert({element, value});
+                    std::cout << element << " is not in symbol table. Has now been inserted";
                 }
             }
 
