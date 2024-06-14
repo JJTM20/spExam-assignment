@@ -1,3 +1,17 @@
 C:/Users/jjtor/Desktop/Skole/8sem/sP/Eksamensprojekt/cmake-build-debug/CMakeFiles/Eksamensprojekt.dir
+C:/Users/jjtor/Desktop/Skole/8sem/sP/Eksamensprojekt/cmake-build-debug/CMakeFiles/tests.dir
+C:/Users/jjtor/Desktop/Skole/8sem/sP/Eksamensprojekt/cmake-build-debug/CMakeFiles/test.dir
 C:/Users/jjtor/Desktop/Skole/8sem/sP/Eksamensprojekt/cmake-build-debug/CMakeFiles/edit_cache.dir
 C:/Users/jjtor/Desktop/Skole/8sem/sP/Eksamensprojekt/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/jjtor/Desktop/Skole/8sem/sP/Eksamensprojekt/cmake-build-debug/CMakeFiles/list_install_components.dir
+C:/Users/jjtor/Desktop/Skole/8sem/sP/Eksamensprojekt/cmake-build-debug/CMakeFiles/install.dir
+C:/Users/jjtor/Desktop/Skole/8sem/sP/Eksamensprojekt/cmake-build-debug/CMakeFiles/install/local.dir
+C:/Users/jjtor/Desktop/Skole/8sem/sP/Eksamensprojekt/cmake-build-debug/CMakeFiles/install/strip.dir
+C:/Users/jjtor/Desktop/Skole/8sem/sP/Eksamensprojekt/cmake-build-debug/_deps/doctest-build/CMakeFiles/doctest_with_main.dir
+C:/Users/jjtor/Desktop/Skole/8sem/sP/Eksamensprojekt/cmake-build-debug/_deps/doctest-build/CMakeFiles/test.dir
+C:/Users/jjtor/Desktop/Skole/8sem/sP/Eksamensprojekt/cmake-build-debug/_deps/doctest-build/CMakeFiles/edit_cache.dir
+C:/Users/jjtor/Desktop/Skole/8sem/sP/Eksamensprojekt/cmake-build-debug/_deps/doctest-build/CMakeFiles/rebuild_cache.dir
+C:/Users/jjtor/Desktop/Skole/8sem/sP/Eksamensprojekt/cmake-build-debug/_deps/doctest-build/CMakeFiles/list_install_components.dir
+C:/Users/jjtor/Desktop/Skole/8sem/sP/Eksamensprojekt/cmake-build-debug/_deps/doctest-build/CMakeFiles/install.dir
+C:/Users/jjtor/Desktop/Skole/8sem/sP/Eksamensprojekt/cmake-build-debug/_deps/doctest-build/CMakeFiles/install/local.dir
+C:/Users/jjtor/Desktop/Skole/8sem/sP/Eksamensprojekt/cmake-build-debug/_deps/doctest-build/CMakeFiles/install/strip.dir

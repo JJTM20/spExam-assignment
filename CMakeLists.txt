@@ -11,3 +11,8 @@ add_executable(Eksamensprojekt main.cpp
         PrettyPrinter.cpp
         Grapher.h
 )
+
+enable_testing()
+include(Test/doctest.cmake)
+add_executable(tests Test/Test.cpp StochasticSimulation.cpp StochasticSimulation.h)
+target_link_libraries(tests PRIVATE doctest::doctest_with_main)

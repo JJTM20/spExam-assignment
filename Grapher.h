@@ -9,6 +9,11 @@
 
 #include <utility>
 
+std::string cleanString(std::string str) {
+    str.erase(std::remove(str.begin(), str.end(), ':'), str.end());
+    return str;
+}
+
 class Grapher{
 private:
     std::string start = "digraph{";
@@ -19,7 +24,7 @@ private:
     std::vector<double> delays = std::vector<double>();
 public:
     Grapher(std::string name){
-    std::string path="..\\out\\out_" + name + ".txt";
+    std::string path="..\\out\\out_" + cleanString(name) + ".txt";
     out = std::ofstream(path);
     out << start;
     };
@@ -28,7 +33,7 @@ public:
         std::cout << "Grapher destroyed. ";
     }
 
-    void Graph(std::list<Reaction> reactions){
+    void Graph(std::list<stochastic::Reaction> reactions){
         for (auto r:reactions) {
             auto delay = AddDelay(r.get_current_rate_parameter());
             for (auto reactant:r.get_reactants()) {
@@ -62,7 +67,7 @@ public:
     //Takes in (label, delay) || (delay, label)
     template<class T1, class T2>
     void AddArrow(T1 source, T2 target, double delay){
-        out << source << "->" << target << "[label=\"" << (int)(delay / 0.01) * 0.01 <<"\"]\n";
+        out << source << "->" << target << "[label=\"" << (double)(delay / 0.01) * 0.01 <<"\"]\n";
     }
 };
 

@@ -2,8 +2,8 @@
 // Created by jjtor on 12/06/2024.
 //
 
-#define DOCTEST_CONFIG_IMPLEMENT
 #include "doctest.h"
+#include "../StochasticSimulation.h"
 
 int fact(int n) {
     return n <= 1 ? n : fact(n - 1) * n;

@@ -1,0 +1,13 @@
+digraph{I[label="I",shape="box",style="filled",fillcolor="cyan"];
+I->I[label="7.74194e-05"]
+I->E[label="7.74194e-05"]
+S[label="S",shape="box",style="filled",fillcolor="cyan"];
+S->I[label="7.74194e-05"]
+S->E[label="7.74194e-05"]
+E[label="E",shape="box",style="filled",fillcolor="cyan"];
+E->I[label="0.196078"]
+I->R[label="0.322581"]
+I->H[label="0.000290061"]
+H[label="H",shape="box",style="filled",fillcolor="cyan"];
+H->R[label="0.0988142"]
+}
