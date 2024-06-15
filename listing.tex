@@ -1,0 +1,102 @@
+\documentclass[a4paper]{article}
+
+\usepackage[a4paper, total={18cm, 26cm}]{geometry}
+\usepackage[T1]{fontenc} % needed by beramono
+\usepackage{textcomp}
+% beramono.sty and MnSymbol.sty come with texlive-fonts-extra in Debian
+\usepackage[scaled=0.85]{beramono} % tt font supporting slshape and zero with dot
+\usepackage{MnSymbol} % fancy symbols for line-breaks
+\usepackage[utf8]{inputenc}
+\usepackage{listingsutf8}  % code listings, comes with texlive-latex-recommended
+%\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{verbatim}
+\usepackage{graphicx} % \includegraphics[width=\textwidth]{image.png}
+
+\protected\def\plusminus{\ensuremath{\pm}}
+\DeclareUnicodeCharacter{C2B1}{\plusminus}
+
+\lstset{
+  inputencoding=utf8,
+  literate={±}{\plusminus}1
+}
+
+\lstdefinestyle{bwC++}{
+  language=C++,morekeywords={concept,consteval,constinit,constexpr,co_await,co_return,co_yield,requires},
+  basicstyle=\ttfamily,
+  keywordstyle=\bfseries,
+  stringstyle=\slshape,
+  commentstyle=\slshape,
+  morecomment=[s][\bfseries\slshape]{/**}{*/},
+  tabsize=4,
+  showstringspaces=false,
+  breaklines=true, breakatwhitespace=true,
+  prebreak={\hbox{\quad$\rhookswarrow$}},
+  postbreak={\hbox{$\lhookrightarrow$}},
+  breakindent={-8pt}, breakautoindent=false,
+  numbers=left, numberstyle=\tiny,
+  frameshape={RYR}{N}{N}{YYY} %frame=tb,frameround=tttt
+}
+
+\lstdefinestyle{colorC++}{
+  language=C++,morekeywords={concept,consteval,constinit,constexpr,co_await,co_return,co_yield,requires},
+  basicstyle=\ttfamily,
+  keywordstyle=\textcolor{blue},
+  stringstyle=\slshape\textcolor{red!70!black},
+  commentstyle=\slshape\textcolor{green!50!black},
+  morecomment=[s][\bfseries\slshape\textcolor{green!50!black}]{/**}{*/},
+  tabsize=4,
+  showstringspaces=false,
+  breaklines=true, breakatwhitespace=true,
+  prebreak={\hbox{\quad\textcolor{red}{$\rhookswarrow$}}},
+  postbreak={\hbox{\textcolor{red}{$\lhookrightarrow$}}},
+  breakindent={-8pt}, breakautoindent=false,
+  numbers=left, numberstyle=\tiny,
+  frameshape={RYR}{N}{N}{YYY} %frame=tb,frameround=tttt
+}
+
+\lstdefinestyle{colorBash}{
+  language=bash,
+  basicstyle=\ttfamily,
+  keywordstyle=\textcolor{blue},
+  stringstyle=\slshape\textcolor{red!70!black},
+  commentstyle=\slshape\textcolor{green!50!black},
+  morecomment=[s][\bfseries\slshape\textcolor{green!50!black}]{/**}{*/},
+  tabsize=4,
+  showstringspaces=false,
+  breaklines=true, breakatwhitespace=true,
+  prebreak={\hbox{\quad\textcolor{red}{$\rhookswarrow$}}},
+  postbreak={\hbox{\textcolor{red}{$\lhookrightarrow$}}},
+  breakindent={-8pt}, breakautoindent=false,
+  numbers=left, numberstyle=\tiny,
+  frameshape={RYR}{N}{N}{YYY} %frame=tb,frameround=tttt
+}
+
+\title{Selected Topics in Programming Assignment}
+\author{Jens Jacob Torvin Møller}
+\begin{document}
+  \maketitle
+  \lstinputlisting[style=colorC++,caption={./Benchmarker.h}]{./Benchmarker.h}
+  \lstinputlisting[style=colorC++,caption={./GlobalState.h}]{./GlobalState.h}
+  \lstinputlisting[style=colorC++,caption={./Grapher.h}]{./Grapher.h}
+  \lstinputlisting[style=colorC++,caption={./Molecule.h}]{./Molecule.h}
+  \lstinputlisting[style=colorC++,caption={./Observer.h}]{./Observer.h}
+  \lstinputlisting[style=colorC++,caption={./PrettyPrinter.h}]{./PrettyPrinter.h}
+  \lstinputlisting[style=colorC++,caption={./Reaction.h}]{./Reaction.h}
+  \lstinputlisting[style=colorC++,caption={./StochasticSimulation.h}]{./StochasticSimulation.h}
+  \lstinputlisting[style=colorC++,caption={./Vessel.h}]{./Vessel.h}
+  \lstinputlisting[style=colorC++,caption={./Benchmarker.cpp}]{./Benchmarker.cpp}
+  \lstinputlisting[style=colorC++,caption={./GlobalState.cpp}]{./GlobalState.cpp}
+  \lstinputlisting[style=colorC++,caption={./Grapher.cpp}]{./Grapher.cpp}
+  \lstinputlisting[style=colorC++,caption={./main.cpp}]{./main.cpp}
+  \lstinputlisting[style=colorC++,caption={./Molecule.cpp}]{./Molecule.cpp}
+  \lstinputlisting[style=colorC++,caption={./PrettyPrinter.cpp}]{./PrettyPrinter.cpp}
+  \lstinputlisting[style=colorC++,caption={./Reaction.cpp}]{./Reaction.cpp}
+  \lstinputlisting[style=colorC++,caption={./StochasticSimulation.cpp}]{./StochasticSimulation.cpp}
+  \lstinputlisting[style=colorC++,caption={./Test/Test.cpp}]{./Test/Test.cpp}
+  \lstinputlisting[style=colorC++,caption={./Vessel.cpp}]{./Vessel.cpp}
+  \lstinputlisting[style=colorBash,caption={./CMakeLists.txt}]{./CMakeLists.txt}
+  \lstinputlisting[style=colorBash,caption={Rhythm.txt}]{Rhythm.txt}
+  \lstinputlisting[style=colorBash,caption={./Results/Benchmarking}]{./Results/Benchmarking}
+  \lstinputlisting[style=colorBash,caption={SEIHR\_50sims.txt}]{SEIHR_50sims.txt}
+\end{document}
