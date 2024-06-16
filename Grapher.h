@@ -54,12 +54,8 @@ public:
         out << label << "[label=\"" << label << R"(",shape="box",style="filled",fillcolor="cyan"];)" << "\n";
     }
     std::string AddDelay(double delay){
-        /*if (std::find(delays.begin(), delays.end(), delay) != delays.end()){
-            return "r" + std::to_string(delay_index);
-        }*/
         delays.push_back(delay);
         auto r = "r" + std::to_string(delay_index);
-        //out << "r" + std::to_string(delay_index) << "[label=\"" << std::to_string(delay) << R"(",shape="oval",style="filled",fillcolor="yellow"];)" << "\n";
         delay_index++;
         return r;
     }

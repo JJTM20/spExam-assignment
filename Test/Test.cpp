@@ -6,6 +6,7 @@
 #include "../StochasticSimulation.h"
 
 namespace stochastic{
+    //Exercise 9
     TEST_CASE("Test SymbolTable") {
             auto symbolTable = GlobalState().symbolTable;
         SUBCASE("LookUpSuccess"){

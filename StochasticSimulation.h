@@ -49,22 +49,20 @@ namespace stochastic {
         double time = 0;
         //std::list<Molecule> reactants; //Current molecules swimming around
 
+        //Exercise 3 Generic symboltable implemented as a struct and instantiated in GlobalState
         template<class T, class U>
         struct GenericLookupTable {
             std::map<T, U> table;
 
             auto LookUp(T search) {
                 return table.find(search);
-
-                /*if (auto it = table.find(search); it != table.end())
-                    return it;*/
             }
 
-            void Insert(Molecule m) {
-                table.insert({m.GetName(), m.get_current_amount()});
+            void Insert(T name, U value) {
+                table.insert({name, value});
             }
 
-            void Update(T element, int value) {
+            void Update(T element, U value) {
                 auto it = LookUp(element);
                 if (it != table.end()) {
                     it->second += value;
@@ -84,12 +82,9 @@ namespace stochastic {
         GenericLookupTable<std::string, int> symbolTable = GenericLookupTable<std::string, int>();
 
         void AddReactant(Molecule reactant) {
-            //reactants.push_back(reactant);
-            symbolTable.Insert(reactant);
+            symbolTable.Insert(reactant.GetName(), reactant.get_current_amount());
         }
-
         void AddTime(double time_to_add) { time += time_to_add; }
-
         double GetCurrentTime() { return time; }
     };
 
@@ -120,7 +115,7 @@ namespace stochastic {
 
         void add_product(const Molecule &product) { products.push_back(product); }
 
-        //Overloads
+        // Exercise 1 Overloads
         Reaction operator>>(double rate) {
             auto r = Reaction();
             for (const auto &reactant: this->get_reactants()) {
@@ -148,7 +143,6 @@ namespace stochastic {
         };
 
         Reaction operator>>=(Environment env) {
-            ;
             return *this;
         };
     };

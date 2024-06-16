@@ -21,38 +21,27 @@ int main() {
     auto f1 = Figure1_1();
     auto f2 = Figure1_2();
     auto f3 = Figure1_3();
-    //std::cout << c.GetReactions();
-
-    //auto grapher = Grapher("Seihr");
-    //grapher.Graph(r);
-    //grapher.Graph(s.GetReactions());
-
     auto benchmarker = Bench();
 
+#pragma region Exercise 2 & 6 (Pretty Printing is implemented as an overload to the '<<'-operator and the grapher draws the trajectory in dot-format
+    //auto r = s.GetReactions();
+    //std::cout << r;
+    //auto grapher = Grapher("Seihr");
+    //grapher.Graph(s.GetReactions());
+#pragma endregion
+#pragma region Exercise 4
     auto sim = stochastic::StochasticSimulation();
+#pragma endregion
+#pragma region Exercise 5
+    //sim.RunSimulation(f1, 2000);
+    //sim.RunSimulation(f2, 2000);
     //sim.RunSimulation(f3, 2000);
     //sim.RunSimulation(c, 100);
     //sim.RunSimulation(s, 100);
+#pragma endregion
+#pragma region Exercise 7
     //HospitalPeak();
-
-#pragma region Single Run 50 Simulations Benchmarking
-    /*benchmarker.start_clock("SEIHR_SINGLE");
-    for (int i = 0; i < 50; ++i) {
-        std::cout << "\n" << "i = " << i;
-        sim.RunSimulation(s, 100);
-    }
-    benchmarker.stop_clock("SEIHR_SINGLE");
-    std::cout << "\n";
-    benchmarker.report();*/
 #pragma endregion
-#pragma region Parallel Run 50 Simulations Benchmarking
-    benchmarker.start_clock("SEIHR_PARALLEL");
-    sim.RunSimulationParallel(s, 100, 50);
-    benchmarker.stop_clock("SEIHR_PARALLEL");
-    benchmarker.report();
-#pragma endregion
-
-    std::cout << "\nHello, World!" << std::endl;
 
     return 0;
 }
@@ -167,8 +156,37 @@ stochastic::Vessel Figure1_3(){
     return v;
 }
 
+#pragma region Exercise 8 & 10
+#pragma region Parallel Run 50 Simulations Benchmarking
+void ParallelBenchMark(){
+    auto benchmarker = Bench();
+    auto sim = stochastic::StochasticSimulation();
+    auto s = seihr(10000);
 
+    benchmarker.start_clock("SEIHR_PARALLEL");
+    sim.RunSimulationParallel(s, 100, 50);
+    benchmarker.stop_clock("SEIHR_PARALLEL");
+    benchmarker.report();
+}
+#pragma endregion
+#pragma region Single Run 50 Simulations Benchmarking
+void SingleBenchMark(){
+    auto benchmarker = Bench();
+    auto sim = stochastic::StochasticSimulation();
+    auto s = seihr(10000);
 
+    benchmarker.start_clock("SEIHR_SINGLE");
+    for (int i = 0; i < 50; ++i) {
+        std::cout << "\n" << "i = " << i;
+        sim.RunSimulation(s, 100);
+    }
+    benchmarker.stop_clock("SEIHR_SINGLE");
+    std::cout << "\n";
+    benchmarker.report();
+}
+#pragma endregion
+#pragma endregion
+#pragma region Exercise 6
 void HospitalPeak(){
     auto observer = [](double time, stochastic::Vessel &v){
         static int max = 0;
@@ -190,3 +208,4 @@ void HospitalPeak(){
     }
 
 }
+#pragma endregion

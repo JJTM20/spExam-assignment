@@ -132,7 +132,7 @@ namespace stochastic {
         return min_delay_reaction;
     }
 
-
+    // Exercise 1 Overloads
     Reaction Molecule::operator+(Molecule molecule) const {
         auto r = Reaction();
         r.add_reactant(molecule);
